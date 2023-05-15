@@ -274,44 +274,35 @@ tfidf_matrix = sp.hstack([tfidf_matrix_alpha, tfidf_matrix_beta, tfidf_matrix_ga
 @app.get('/recomendacion/{titulo}')
 def recomendacion(titulo:str):
     """
-Lleva a cabo la recomendación de películas basada en la similitud de contenido utilizando TF-IDF.
+    Lleva a cabo la recomendación de películas basada en la similitud de contenido utilizando TF-IDF.
 
-Args:
-    titulo (str): El título de la película de referencia para la cual se realizará la recomendación.
+    Args:
+        titulo (str): El título de la película de referencia para la cual se realizará la recomendación.
 
-Returns:
-    DataFrame: Un DataFrame que contiene las películas recomendadas con mayor similitud de contenido.
-
-"""
-
+    Returns:
+        list: Una lista que contiene los títulos de las películas recomendadas con mayor similitud de contenido.
+    """
 
     movie = df[df['title'].str.contains(titulo, case=False, na=False)]
     if movie.empty:
-        return {'error': 'Movie not found'}
+        return [{'error': 'Movie not found'}]
     
     movie_index = movie.index[0]
     movie_vector = tfidf_matrix.getrow(movie_index)
     
-    
-    # calcula la similitud del coseno entre la película de entrada y todas las demás películas
-
+    # Calcula la similitud del coseno entre la película de entrada y todas las demás películas
     cosine_similarities = linear_kernel(movie_vector, tfidf_matrix).flatten()
     
-    # obtengo los índices de las películas ordenadas por puntajes de similitud
-    
+    # Obtiene los índices de las películas ordenadas por puntajes de similitud
     similar_movie_indices = cosine_similarities.argsort()[::-1]
     
-    # filtra la propia película de entrada
-
+    # Filtra la propia película de entrada
     similar_movie_indices = similar_movie_indices[similar_movie_indices != movie_index]
     
-    # filtra las películas con un puntaje de similitud inferior a 0.35
-
+    # Filtra las películas con un puntaje de similitud inferior a 0.35
     high_similarity_indices = similar_movie_indices[cosine_similarities[similar_movie_indices] >= 0.2]
     
-    # obtiene los títulos de las películas, promedios de votos y popularidad de las películas con mayor similitud
-
-    recommended_movies = df.iloc[high_similarity_indices[:5]][['title']]
+    # Obtiene los títulos de las películas con mayor similitud
+    recommended_movies = df.iloc[high_similarity_indices[:5]]['title'].tolist()
     
-
     return recommended_movies

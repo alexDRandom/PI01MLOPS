@@ -49,7 +49,7 @@ Las funciones (Método `GET`) con las que cuenta la API son:
 
 - **startup:** función de arranque donde la API pone a disposición la fuente de datos ya transformado para la aplicación de las consultas
 
-- **index:** función de bienvenida con un HTML response
+- **index:** función de bienvenida
 
 - **def peliculas_mes(mes)**: '''Se ingresa el mes y la funcion retorna la cantidad de peliculas que se estrenaron ese mes historicamente''' return {'mes':mes, 'cantidad':respuesta}
 

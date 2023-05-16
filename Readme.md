@@ -17,7 +17,7 @@ El objetivo de este proyecto es crear un sistema de recomendacion de peliculas y
 |                  Descripción                  |                          Link                           | Plataforma |
 | :-------------------------------------------: | :-----------------------------------------------------: | :--------: |
 |    Consignas del proyecto de MLOPS    | [Repositorio](https://github.com/HX-PRomero/PI_ML_OPS/) |   Github   |
-| Video explicativo del desarrollo del proyecto |                  [Video](link)                   |  YouTube   |
+| Video explicativo del desarrollo del proyecto |                  [Video](https://drive.google.com/file/d/15qRobbwVIb1L-ETL0Ay6JwZ8vzxAFEcG/view?usp=share_link)                   |  Google Drive   |
 
 ## ETAPAS DEL PROYECTO
 
